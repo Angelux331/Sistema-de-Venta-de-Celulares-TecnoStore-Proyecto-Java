@@ -1,5 +1,6 @@
 package gestores;
 
+import dao.CelularDAO;
 import enums.Gama;
 import models.Celular;
 import utils.ArchivoUtils;
@@ -8,12 +9,12 @@ import enums.SistemaOperativo;
 import utils.Menus;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GestorCelulares {
+  private CelularDAO celularDAO = new CelularDAO();
 
-  public static void gestionCelulares(ArrayList<Celular> celulares, Scanner teclado){
+  public void gestionCelulares(Scanner teclado) {
     boolean programaActivo = true;
     while (programaActivo) {
       ArchivoUtils.limpiarPantalla1();
@@ -24,7 +25,7 @@ public class GestorCelulares {
       switch (opcion) {
         case 1:
           // registrar celular
-            agregarCelular(celulares, teclado);
+          agregarCelular(teclado);
           break;
         case 2:
           // actualizar informacion
@@ -50,11 +51,14 @@ public class GestorCelulares {
     }
   }
 
-  public static void agregarCelular(ArrayList<Celular> celulares, Scanner teclado) {
+  public void agregarCelular(Scanner teclado) {
     ArchivoUtils.limpiarPantalla1();
+
+    boolean disponible = true;
 
     System.out.println("===== NUEVO CELULAR =====");
 
+    teclado.nextLine();
     System.out.print("Marca: ");
     String marca = teclado.nextLine();
 
@@ -64,9 +68,23 @@ public class GestorCelulares {
     System.out.print("Precio: ");
     BigDecimal precio = teclado.nextBigDecimal();
 
+    if (precio.compareTo(BigDecimal.ZERO) < 0) {
+      System.out.println("El stock no puede ser negativo. Se establecerá en 0.");
+
+      disponible = false;
+      precio = BigDecimal.ZERO;
+    }
+
     System.out.print("Stock: ");
     int stock = teclado.nextInt();
     teclado.nextLine();
+
+    if (stock <= 0) {
+      System.out.println("El stock no puede ser negativo. Se establecerá en 0.");
+      if (disponible) disponible = false;
+      stock = 0;
+      teclado.nextLine();
+    }
 
     boolean seleccionValidaSO = true;
 
@@ -75,7 +93,8 @@ public class GestorCelulares {
     while (seleccionValidaSO) {
       ArchivoUtils.limpiarPantalla1();
 
-      System.out.print("Sistema Operativo:\n1.Android\n2.IOS");
+      System.out.println("Sistema Operativo:\n1.Android\n2.IOS");
+      System.out.print("Ingrese Opcion: ");
       int opcion = teclado.nextInt();
 
       switch (opcion) {
@@ -102,7 +121,8 @@ public class GestorCelulares {
     while (seleccionValidaGama) {
       ArchivoUtils.limpiarPantalla1();
 
-      System.out.print("Gama:\n1.BAJA\n2.MEDIA\n3.ALTA");
+      System.out.println("Gama:\n1.BAJA\n2.MEDIA\n3.ALTA");
+      System.out.print("Ingrese Opcion: ");
       int opcion = teclado.nextInt();
 
       switch (opcion) {
@@ -126,65 +146,56 @@ public class GestorCelulares {
       }
     }
 
+    Celular nuevoCelular = new Celular(marca, modelo, precio, stock, sistemaOperativo, gama, disponible);
 
-      int idGuardarCelulares;
+    celularDAO.registrarCelular(nuevoCelular);
 
-      if (celulares.isEmpty()) {
-        idGuardarCelulares = 1;
-      } else {
-        Celular ultimoCelular = celulares.get(celulares.size() - 1);
+    System.out.println("Celular agregado correctamente.");
 
-        idGuardarCelulares = ultimoCelular.getId() + 1;
-      }
-
-      Celular nuevoCelular = new Celular(idGuardarCelulares, marca, modelo, precio, stock, sistemaOperativo, gama);
-
-      celulares.add(nuevoCelular);
-
-      System.out.println("Celular agregado correctamente.");
-
-      System.out.println("Presione Enter para continuar...");
-      teclado.nextLine();
-    }
-
-  public static void buscarCelularPorID(ArrayList<Celular> celulares, Scanner teclado){
-    ArchivoUtils.limpiarPantalla1();
-
-    System.out.print("Ingrese un ID: ");
-
-    int id = teclado.nextInt();
-
-    boolean encontrado = false;
-
-    for (Celular celular : celulares) {
-      if (celular.getId() == id) {
-        System.out.println(celular);
-        encontrado = true;
-        break;
-      }
-    }
-    if (!encontrado) {
-      System.out.println("Celular con el ID: " + id + " no fue encontrado");
-    }
-
-    teclado.nextLine();
-    System.out.println("Presione Enter para continuar...");
-    teclado.nextLine();
-  }
-
-  public static void listarCelulares(ArrayList<Celular> celulares, Scanner teclado){
-    ArchivoUtils.limpiarPantalla1();
-
-    System.out.println("===== INVENTARIO =====");
-
-    for (Celular celular : celulares) {
-      System.out.println(celular);
-    }
-
-    teclado.nextLine();
     System.out.println("Presione Enter para continuar...");
     teclado.nextLine();
   }
 }
+
+//  public void buscarCelularPorID(Scanner teclado){
+//    ArchivoUtils.limpiarPantalla1();
+//
+//    System.out.print("Ingrese un ID: ");
+//
+//    int id = teclado.nextInt();
+//
+//    boolean encontrado = false;
+//
+//    for (Celular celular : celulares) {
+//      if (celular.getId() == id) {
+//        System.out.println(celular);
+//        encontrado = true;
+//        break;
+//      }
+//    }
+//    if (!encontrado) {
+//      System.out.println("Celular con el ID: " + id + " no fue encontrado");
+//    }
+//
+//    teclado.nextLine();
+//    System.out.println("Presione Enter para continuar...");
+//    teclado.nextLine();
+//  }
+
+
+//  public static void listarCelulares(Scanner teclado){
+//    ArchivoUtils.limpiarPantalla1();
+//
+//    System.out.println("===== INVENTARIO =====");
+//
+//    for (Celular celular : celulares) {
+//      System.out.println(celular);
+//    }
+//
+//    teclado.nextLine();
+//    System.out.println("Presione Enter para continuar...");
+//    teclado.nextLine();
+//  }
+
 
 

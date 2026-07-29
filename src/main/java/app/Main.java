@@ -1,21 +1,14 @@
 package app;
-
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import conexion.Conexion;
 import gestores.GestorCelulares;
 import gestores.GestorClientes;
-import models.Celular;
 import utils.ArchivoUtils;
 import utils.Menus;
 
 public class Main {
 
   public static void main(String[] args) {
-
-    ArrayList<Celular> celulares = new ArrayList<>();
 
     Scanner teclado = new Scanner(System.in);
 
@@ -31,7 +24,7 @@ public class Main {
 
       switch (opcion) {
         case 1:
-          GestorCelulares.gestionCelulares(celulares, teclado);
+          GestorCelulares gestorCelulares = new GestorCelulares();
           break;
         case 2:
           GestorClientes.gestionClientes(teclado);

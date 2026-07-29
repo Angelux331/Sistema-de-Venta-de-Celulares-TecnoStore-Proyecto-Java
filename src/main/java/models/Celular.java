@@ -14,22 +14,23 @@ public class Celular {
   private int stock;
   private SistemaOperativo sistemaOperativo;
   private Gama gama;
+  private boolean disponible;
 
 
   //Contructor
-  public Celular(int id, String marca, String modelo, BigDecimal precio, int stock, SistemaOperativo sistemaOperativo, Gama gama) {
-    this.id = id;
+  public Celular(String marca, String modelo, BigDecimal precio, int stock, SistemaOperativo sistemaOperativo, Gama gama, boolean disponible) {
     this.marca = marca;
     this.modelo = modelo;
     this.precio = precio;
     this.stock = stock;
     this.sistemaOperativo = sistemaOperativo;
     this.gama = gama;
+    this.disponible = disponible;
   }
 
   @Override
   public String toString() {
-    return id + " " + marca + " " + modelo + " " + precio + " " + sistemaOperativo + " " + gama;
+    return id + " " + marca + " " + modelo + " " + precio + " " + sistemaOperativo + " " + gama + " " + disponible;
   }
 
   //Gets
@@ -59,6 +60,10 @@ public class Celular {
 
   public Gama getGama() {
     return gama;
+  }
+
+  public boolean getDisponible() {
+    return disponible;
   }
 
   //Sets
@@ -92,6 +97,10 @@ public class Celular {
 
   public void setGama(Gama gama) {
     this.gama = gama;
+  }
+
+  public void setDisponible(boolean disponible) {
+    this.disponible = disponible;
   }
 }
 
