@@ -3,19 +3,21 @@ package models;
 import enums.SistemaOperativo;
 import enums.Gama;
 
+import java.math.BigDecimal;
+
 public class Celular {
 
   private int id;
   private String marca;
   private String modelo;
-  private double precio;
+  private BigDecimal precio;
   private int stock;
   private SistemaOperativo sistemaOperativo;
   private Gama gama;
 
 
   //Contructor
-  public Celular(int id, String marca, String modelo, double precio, int stock, SistemaOperativo sistemaOperativo, Gama gama) {
+  public Celular(int id, String marca, String modelo, BigDecimal precio, int stock, SistemaOperativo sistemaOperativo, Gama gama) {
     this.id = id;
     this.marca = marca;
     this.modelo = modelo;
@@ -43,7 +45,7 @@ public class Celular {
     return modelo;
   }
 
-  public double getPrecio(){
+  public BigDecimal getPrecio(){
     return precio;
   }
 
@@ -72,8 +74,8 @@ public class Celular {
     this.modelo = modelo;
   }
 
-  public void setPrecio(double precio){
-    if(precio >= 0){
+  public void setPrecio(BigDecimal precio){
+    if (precio.compareTo(BigDecimal.ZERO) >=0){
       this.precio = precio;
     }
   }
