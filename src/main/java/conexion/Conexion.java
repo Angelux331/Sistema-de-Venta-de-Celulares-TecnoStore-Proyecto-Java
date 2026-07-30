@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-  private static final String URL = "jdbc:mysql://localhost:3306/TecnoStore";
+  private static final String URL = "jdbc:mysql://localhost:3306/TecnoStore_DB";
 
   private static final String USUARIO = "tecnostore";
 

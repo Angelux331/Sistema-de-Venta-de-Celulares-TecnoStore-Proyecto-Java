@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 import gestores.GestorCelulares;
 import gestores.GestorClientes;
+import gestores.GestorReportes;
+import gestores.GestorVentas;
 import utils.ArchivoUtils;
 import utils.Menus;
 
@@ -35,12 +37,18 @@ public class Main {
           break;
         case 3:
           // Hacer venta
+          GestorVentas registrarVenta = new GestorVentas();
+          registrarVenta.gestionVentas(teclado);
           break;
         case 4:
           // Gestionar Ventas
+          GestorVentas gestorVentas = new GestorVentas();
+          gestorVentas.gestionVentas(teclado);
           break;
         case 5:
           // Reportes
+          GestorReportes gestorReportes = new GestorReportes();
+          gestorReportes.gestionReportes(teclado);
           break;
         case 6:
           ArchivoUtils.limpiarPantalla1();

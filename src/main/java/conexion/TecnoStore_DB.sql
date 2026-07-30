@@ -1,18 +1,19 @@
-DROP DATABASE IF EXISTS TecnoStore;
+DROP DATABASE IF EXISTS TecnoStore_DB;
 
-CREATE database TecnoStore;
+CREATE database TecnoStore_DB;
 
-USE TecnoStore;
+USE TecnoStore_DB;
 
 DROP USER IF EXISTS 'tecnostore'@'localhost';
 CREATE USER 'tecnostore'@'localhost'
 IDENTIFIED BY 'TecnoStore123!';
 
 GRANT ALL PRIVILEGES
-ON TecnoStore.*
+ON TecnoStore_DB.*
 TO 'tecnostore'@'localhost';
 
 FLUSH PRIVILEGES;
+
 
 create table if not exists celulares(
 	id_celular INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,6 +25,7 @@ create table if not exists celulares(
 	gama ENUM('BAJA','MEDIA','ALTA') NOT null,
 	disponible BOOL not NULL
 );
+
 
 create table if not exists clientes(
 	id_cliente INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,10 +41,13 @@ create table if not exists ventas(
 	id_venta int AUTO_INCREMENT PRIMARY KEY,
 	id_cliente int not null,
 	fecha_venta TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+	sub_total decimal(10,2) NOT NULL DEFAULT 0.00,
+    iva decimal(10,2) NOT NULL DEFAULT 0.00,
 	total DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
 
 	FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
 );
+
 
 create table if not exists detalle_ventas(
 	id_detalle INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,6 +59,7 @@ create table if not exists detalle_ventas(
 	FOREIGN KEY (id_celular) REFERENCES celulares(id_celular) ON DELETE RESTRICT ON UPDATE cascade,
 	foreign key (id_venta) references ventas(id_venta) ON DELETE cascade ON UPDATE CASCADE
 );
+
 
 INSERT INTO celulares (marca, modelo, precio, stock, sistema_operativo, gama, disponible) VALUES
 ('Samsung', 'Galaxy A16', 699900.00, 15, 'ANDROID', 'BAJA', TRUE),
@@ -71,6 +77,7 @@ INSERT INTO celulares (marca, modelo, precio, stock, sistema_operativo, gama, di
 ('Samsung', 'Galaxy Z Flip6', 5499900.00, 2, 'ANDROID', 'ALTA', TRUE),
 ('Apple', 'iPhone SE (2022)', 2499900.00, 5, 'IOS', 'MEDIA', TRUE),
 ('Motorola', 'Edge 50 Fusion', 1799900.00, 6, 'ANDROID', 'ALTA', TRUE);
+
 
 INSERT INTO clientes (nombre, apellido, identificacion, correo, telefono) VALUES
 ('Juan', 'Pérez', '1001001001', 'juan.perez@gmail.com', '3001234567'),
