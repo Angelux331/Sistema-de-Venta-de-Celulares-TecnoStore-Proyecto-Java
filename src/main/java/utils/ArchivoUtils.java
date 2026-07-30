@@ -23,6 +23,17 @@ public class ArchivoUtils {
       System.out.println();
     }
   }
+
+  public static void pausarPantalla(Scanner teclado) {
+    System.out.println("Presione Enter para continuar...");
+    teclado.nextLine();
+  }
+
+  public static void manejoErrores(Scanner teclado) {
+    teclado.nextLine();
+    System.out.print("Opcion no valida, vuelva a intentarlo");
+    teclado.nextLine();
+  }
 }
 
 

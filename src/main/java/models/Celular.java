@@ -30,7 +30,7 @@ public class Celular {
 
   @Override
   public String toString() {
-    return id + " " + marca + " " + modelo + " " + precio + " " + sistemaOperativo + " " + gama + " " + disponible;
+    return id + " | " + marca + " | " + modelo + " | " + precio + " | " + sistemaOperativo + " | " + gama + " | " + disponible;
   }
 
   //Gets

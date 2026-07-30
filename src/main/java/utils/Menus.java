@@ -9,7 +9,11 @@ public class Menus {
     System.out.println("===== GESTIÓN DE CELULARES =====\n1.Registrar Celular\n2.Actualizar Información\n3.Eliminar Celular\n4.Consultar Catálogo\n5.Volver");
   }
 
-  public static  void menuGestionClientes(){
+  public static void menuGestionClientes(){
     System.out.println("===== GESTIÓN DE CLIENTES =====\n1.Registrar clientes\n2.Consultar clientes\n3.Actualizar información\n4.Eliminar clientes\n5.Volver");
+  }
+
+  public static void menuActualizarCliente(){
+    System.out.println("===== ACTUALIZAR CLIENTE =====\n1.Buscar por ID\n2.Buscar por Identificación\n3.Volver");
   }
 }

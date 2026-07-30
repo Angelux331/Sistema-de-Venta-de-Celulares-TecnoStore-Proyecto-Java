@@ -4,37 +4,34 @@ public class Cliente {
 
   private int id;
   private String nombre;
-  private int identificacion;
+  private String apellido;
+  private String identificacion;
   private String correo;
   private String telefono;
 
 
   //Contructor
-  public Cliente(int id, String nombre, int identificacion, String correo, String telefono) {
-    this.id = id;
+  public Cliente(String nombre, String apellido, String identificacion, String correo, String telefono) {
     this.nombre = nombre;
+    this.apellido = apellido;
     this.identificacion = identificacion;
     this.correo = correo;
     this.telefono = telefono;
   }
 
   @Override
-  public String toString() {
-    return nombre + " " + identificacion + " " + correo + " " + telefono;
-  }
+  public String toString() { return id + " | " + nombre + " " + apellido + " | CC: " + identificacion + " | " + correo + " | " + telefono;}
 
   //Gets
-  public int getId() {
-    return id;
-  }
+  public int getId() { return id; }
 
   public String getNombre() {
     return nombre;
   }
 
-  public int getIdentificacion() {
-    return identificacion;
-  }
+  public String getApellido() { return apellido; }
+
+  public String getIdentificacion() { return identificacion; }
 
   public String getCorreo() {
     return correo;
@@ -54,7 +51,9 @@ public class Cliente {
     this.nombre = nombre;
   }
 
-  public void setIdentificacion(int identificacion) {
+  public void setApellido(String apellido) { this.apellido = apellido; }
+
+  public void setIdentificacion(String identificacion) {
     this.identificacion = identificacion;
   }
 

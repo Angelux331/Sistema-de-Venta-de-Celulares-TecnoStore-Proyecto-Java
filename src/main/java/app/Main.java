@@ -28,11 +28,10 @@ public class Main {
           gestorCelulares.gestionCelulares(teclado);
           break;
         case 2:
-          GestorClientes.gestionClientes(teclado);
-          //GestorCelulares.buscarCelularPorID(celulares, teclado);
+          GestorClientes gestorClientes = new GestorClientes();
+          gestorClientes.gestionClientes(teclado);
           break;
         case 3:
-//          GestorCelulares.agregarCelular(celulares, teclado);
           break;
         case 4:
           break;
@@ -44,9 +43,7 @@ public class Main {
           programaActivo = false;
           break;
         default:
-          teclado.nextLine();
-          System.out.print("Opcion no valida, vuelva a intentarlo");
-          teclado.nextLine();
+          ArchivoUtils.manejoErrores(teclado);
           break;
       }
     }
