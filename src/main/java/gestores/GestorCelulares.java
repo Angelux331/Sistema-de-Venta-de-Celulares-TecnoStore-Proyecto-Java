@@ -3,7 +3,6 @@ package gestores;
 import dao.CelularDAO;
 import enums.Gama;
 import models.Celular;
-import models.Cliente;
 import utils.ArchivoUtils;
 
 import enums.SistemaOperativo;
@@ -30,6 +29,7 @@ public class GestorCelulares {
           break;
         case 2:
           // actualizar informacion
+          actualizarCelular(teclado);
           break;
         case 3:
           // eliminar celular
@@ -51,6 +51,7 @@ public class GestorCelulares {
       }
     }
   }
+
 
   public void agregarCelular(Scanner teclado) {
     ArchivoUtils.limpiarPantalla1();
@@ -153,6 +154,7 @@ public class GestorCelulares {
     teclado.nextLine();
   }
 
+
   public void eliminarCelular(Scanner teclado) {
 
     ArchivoUtils.limpiarPantalla1();
@@ -176,6 +178,7 @@ public class GestorCelulares {
     teclado.nextLine(); // Limpiar el buffer del teclado
     ArchivoUtils.pausarPantalla(teclado);
   }
+
 
   public void bucarCelular(Scanner teclado){
     while (true) {
@@ -219,6 +222,104 @@ public class GestorCelulares {
           break;
       }
     }
+  }
+
+  public void actualizarCelular(Scanner teclado) {
+
+    ArchivoUtils.limpiarPantalla1();
+
+    System.out.println("===== ACTUALIZAR CELULAR =====");
+
+    System.out.print("Ingrese el ID del celular: ");
+    int id = teclado.nextInt();
+    teclado.nextLine();
+
+    Celular celular = celularDAO.buscarPorId(id);
+
+    if (celular == null) {
+      System.out.println("Celular no encontrado.");
+      ArchivoUtils.pausarPantalla(teclado);
+      return;
+    }
+
+    System.out.println("Datos actuales:");
+    System.out.println(celular);
+    System.out.println();
+
+    System.out.print("Nueva marca: ");
+    String marca = teclado.nextLine();
+
+    System.out.print("Nuevo modelo: ");
+    String modelo = teclado.nextLine();
+
+    System.out.print("Nuevo precio: ");
+    BigDecimal precio = teclado.nextBigDecimal();
+
+    System.out.print("Nuevo stock: ");
+    int stock = teclado.nextInt();
+    teclado.nextLine();
+
+    SistemaOperativo sistemaOperativo;
+
+    while (true) {
+      System.out.println("Sistema Operativo:");
+      System.out.println("1. ANDROID");
+      System.out.println("2. IOS");
+      System.out.print("Seleccione una opción: ");
+
+      int opcion = teclado.nextInt();
+      teclado.nextLine();
+
+      if (opcion == 1) {
+        sistemaOperativo = SistemaOperativo.ANDROID;
+        break;
+      } else if (opcion == 2) {
+        sistemaOperativo = SistemaOperativo.IOS;
+        break;
+      } else {
+        System.out.println("Opción inválida.");
+      }
+    }
+
+    Gama gama;
+
+    while (true) {
+      System.out.println("Gama:");
+      System.out.println("1. BAJA");
+      System.out.println("2. MEDIA");
+      System.out.println("3. ALTA");
+      System.out.print("Seleccione una opción: ");
+
+      int opcion = teclado.nextInt();
+      teclado.nextLine();
+
+      if (opcion == 1) {
+        gama = Gama.BAJA;
+        break;
+      } else if (opcion == 2) {
+        gama = Gama.MEDIA;
+        break;
+      } else if (opcion == 3) {
+        gama = Gama.ALTA;
+        break;
+      } else {
+        System.out.println("Opción inválida.");
+      }
+    }
+
+    boolean disponible = stock > 0;
+
+    celular.setMarca(marca);
+    celular.setModelo(modelo);
+    celular.setPrecio(precio);
+    celular.setStock(stock);
+    celular.setSistemaOperativo(sistemaOperativo);
+    celular.setGama(gama);
+    celular.setDisponible(disponible);
+
+    celularDAO.actualizarCelular(celular);
+
+    ArchivoUtils.pausarPantalla(teclado);
   }
 }
 

@@ -80,27 +80,52 @@ public class GestorClientes {
     ArchivoUtils.pausarPantalla(teclado);
   }
 
-  public static void actualizarCliente(Scanner teclado) {
+  public void actualizarCliente(Scanner teclado) {
+
     ArchivoUtils.limpiarPantalla1();
-    Menus.menuActualizarCliente();
 
-    System.out.print("Ingrese Opcion: ");
-    int opcion = teclado.nextInt();
+    System.out.println("===== ACTUALIZAR CLIENTE =====");
 
+    System.out.print("Ingrese el ID del cliente: ");
+    int id = teclado.nextInt();
+    teclado.nextLine();
 
-    switch (opcion){
-      case 1:
-        break;
-      case 2:
-        break;
-      case 3:
-        ArchivoUtils.limpiarPantalla1();
-        System.out.println("Volviendo...");
-        return;
-      default:
-        ArchivoUtils.manejoErrores(teclado);
-        break;
+    Cliente cliente = clienteDAO.buscarPorId(id);
+
+    if (cliente == null) {
+      System.out.println("Cliente no encontrado.");
+      ArchivoUtils.pausarPantalla(teclado);
+      return;
     }
+
+    System.out.println("Datos actuales:");
+    System.out.println(cliente);
+    System.out.println();
+
+    System.out.print("Nuevo nombre: ");
+    String nombre = teclado.nextLine();
+
+    System.out.print("Nuevo apellido: ");
+    String apellido = teclado.nextLine();
+
+    System.out.print("Nueva identificación: ");
+    String identificacion = teclado.nextLine();
+
+    System.out.print("Nuevo correo: ");
+    String correo = teclado.nextLine();
+
+    System.out.print("Nuevo teléfono: ");
+    String telefono = teclado.nextLine();
+
+    cliente.setNombre(nombre);
+    cliente.setApellido(apellido);
+    cliente.setIdentificacion(identificacion);
+    cliente.setCorreo(correo);
+    cliente.setTelefono(telefono);
+
+    clienteDAO.actualizarCliente(cliente);
+
+    ArchivoUtils.pausarPantalla(teclado);
   }
 
   public void eliminarCliente(Scanner teclado) {
@@ -160,6 +185,21 @@ public class GestorClientes {
           ArchivoUtils.pausarPantalla(teclado);
           break;
         case 3:
+          // Lógica para consultar cliente por Identificación
+          System.out.print("Ingrese la Identificación: ");
+          String identificacion = teclado.next();
+
+          Cliente clienteIdentificacion = clienteDAO.buscarPorIdentificacion(identificacion);
+
+          if (clienteIdentificacion != null) {
+            System.out.println(clienteIdentificacion);
+          } else {
+            System.out.println("Cliente no encontrado.");
+          }
+          teclado.nextLine(); // Limpiar el buffer del teclado
+          ArchivoUtils.pausarPantalla(teclado);
+          break;
+        case 4:
           // volver al menu de gestión de clientes
           ArchivoUtils.limpiarPantalla1();
           System.out.println("Volviendo...");

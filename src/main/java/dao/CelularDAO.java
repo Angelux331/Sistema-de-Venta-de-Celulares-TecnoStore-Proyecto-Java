@@ -147,4 +147,49 @@ public class CelularDAO {
       System.out.println(e.getMessage());
     }
   }
+
+  public void actualizarCelular(Celular celular) {
+
+    Connection conexion = Conexion.conectar();
+
+    String sql = """
+            UPDATE celulares
+            SET marca=?,
+                modelo=?,
+                precio=?,
+                stock=?,
+                sistema_operativo=?,
+                gama=?,
+                disponible=?
+            WHERE id_celular=?
+            """;
+    try {
+      if (conexion == null) {
+        System.out.println("No fue posible conectar con la base de datos.");
+        return;
+      }
+
+      PreparedStatement ps = conexion.prepareStatement(sql);
+
+      ps.setString(1, celular.getMarca());
+      ps.setString(2, celular.getModelo());
+      ps.setBigDecimal(3, celular.getPrecio());
+      ps.setInt(4, celular.getStock());
+      ps.setString(5, celular.getSistemaOperativo().name());
+      ps.setString(6, celular.getGama().name());
+      ps.setBoolean(7, celular.getDisponible());
+      ps.setInt(8, celular.getId());
+
+      int filas = ps.executeUpdate();
+
+      if (filas > 0) {
+        System.out.println("Celular actualizado correctamente.");
+      } else {
+        System.out.println("No existe un celular con ese ID.");
+      }
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
 }

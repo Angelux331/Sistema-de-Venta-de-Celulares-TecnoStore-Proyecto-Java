@@ -29,9 +29,7 @@ public class Celular {
   }
 
   @Override
-  public String toString() {
-    return id + " | " + marca + " | " + modelo + " | " + precio + " | " + sistemaOperativo + " | " + gama + " | " + disponible;
-  }
+  public String toString() { return id + " | " + marca + " | " + modelo + " | " + precio + " | " + stock + " | " + sistemaOperativo + " | " + gama + " | " + disponible; }
 
   //Gets
   public int getId(){

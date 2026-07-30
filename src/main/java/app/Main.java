@@ -24,18 +24,23 @@ public class Main {
 
       switch (opcion) {
         case 1:
+          // Gestionar Celulares
           GestorCelulares gestorCelulares = new GestorCelulares();
           gestorCelulares.gestionCelulares(teclado);
           break;
         case 2:
+          // Gestionar Clientes
           GestorClientes gestorClientes = new GestorClientes();
           gestorClientes.gestionClientes(teclado);
           break;
         case 3:
+          // Hacer venta
           break;
         case 4:
+          // Gestionar Ventas
           break;
         case 5:
+          // Reportes
           break;
         case 6:
           ArchivoUtils.limpiarPantalla1();
