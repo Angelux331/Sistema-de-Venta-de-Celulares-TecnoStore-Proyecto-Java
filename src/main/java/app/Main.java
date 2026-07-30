@@ -25,6 +25,7 @@ public class Main {
       switch (opcion) {
         case 1:
           GestorCelulares gestorCelulares = new GestorCelulares();
+          gestorCelulares.gestionCelulares(teclado);
           break;
         case 2:
           GestorClientes.gestionClientes(teclado);

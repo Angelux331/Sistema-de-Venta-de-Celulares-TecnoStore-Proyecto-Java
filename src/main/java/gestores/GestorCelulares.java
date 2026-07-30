@@ -32,6 +32,7 @@ public class GestorCelulares {
           break;
         case 3:
           // eliminar celular
+          eliminarCelular(teclado);
           break;
         case 4:
           // consultar catalogo
@@ -155,7 +156,25 @@ public class GestorCelulares {
     System.out.println("Presione Enter para continuar...");
     teclado.nextLine();
   }
+
+  public void eliminarCelular(Scanner teclado){
+    ArchivoUtils.limpiarPantalla1();
+
+    System.out.print("Ingrese un ID: ");
+    int id = teclado.nextInt();
+
+    // Aquí deberías implementar la lógica para eliminar el celular de la base de datos
+    // usando el id proporcionado. Por ejemplo, podrías tener un método en CelularDAO
+    // que se encargue de eliminar el registro correspondiente.
+
+    System.out.println("Celular con el ID: " + id + " ha sido eliminado (simulado).");
+
+    teclado.nextLine();
+    System.out.println("Presione Enter para continuar...");
+    teclado.nextLine();
+  }
 }
+
 
 //  public void buscarCelularPorID(Scanner teclado){
 //    ArchivoUtils.limpiarPantalla1();
