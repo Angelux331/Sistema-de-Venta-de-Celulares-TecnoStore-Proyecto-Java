@@ -190,9 +190,18 @@ public class GestorCelulares {
       switch (opcion) {
         case 1:
           // Lógica para consultar todos los celulares
-          for (Celular celular : celularDAO.buscarTodosLosCelulares()) {
-            System.out.println(celular);
-          }
+          celularDAO.buscarTodosLosCelulares()
+            .stream()
+            .filter(c -> c.getStock() >= 5)
+            .forEach(System.out::println);
+
+          System.out.println("");
+          System.out.println("===== Celulares con Stock menor a 5 =====");
+          celularDAO.buscarTodosLosCelulares()
+            .stream()
+            .filter(c -> c.getStock() < 5)
+            .forEach(System.out::println);
+
           teclado.nextLine(); // Limpiar el buffer del teclado
           ArchivoUtils.pausarPantalla(teclado);
           break;
@@ -323,46 +332,6 @@ public class GestorCelulares {
   }
 }
 
-
-//  public void buscarCelularPorID(Scanner teclado){
-//    ArchivoUtils.limpiarPantalla1();
-//
-//    System.out.print("Ingrese un ID: ");
-//
-//    int id = teclado.nextInt();
-//
-//    boolean encontrado = false;
-//
-//    for (Celular celular : celulares) {
-//      if (celular.getId() == id) {
-//        System.out.println(celular);
-//        encontrado = true;
-//        break;
-//      }
-//    }
-//    if (!encontrado) {
-//      System.out.println("Celular con el ID: " + id + " no fue encontrado");
-//    }
-//
-//    teclado.nextLine();
-//    System.out.println("Presione Enter para continuar...");
-//    teclado.nextLine();
-//  }
-
-
-//  public static void listarCelulares(Scanner teclado){
-//    ArchivoUtils.limpiarPantalla1();
-//
-//    System.out.println("===== INVENTARIO =====");
-//
-//    for (Celular celular : celulares) {
-//      System.out.println(celular);
-//    }
-//
-//    teclado.nextLine();
-//    System.out.println("Presione Enter para continuar...");
-//    teclado.nextLine();
-//  }
 
 
 

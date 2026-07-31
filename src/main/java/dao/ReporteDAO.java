@@ -1,6 +1,6 @@
 package dao;
 
-import conexion.Conexion;
+import database.Conexion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,41 +8,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ReporteDAO {
-  public void ingresosTotales(){
-
-    Connection conexion = Conexion.conectar();
+  public void ingresosTotales() {
 
     String sql = """
             SELECT
-            SUM(total) AS ingresos,
-            COUNT(*) AS ventas
+                SUM(total) AS ingresos,
+                COUNT(*) AS ventas
             FROM ventas
             """;
-
-    try{
-
-      if(conexion == null){
-        return;
-      }
-
+    try (
+      Connection conexion = Conexion.conectar();
       PreparedStatement ps = conexion.prepareStatement(sql);
-
       ResultSet rs = ps.executeQuery();
-
-      if(rs.next()){
-
-        System.out.println("===== INGRESOS =====");
-        System.out.println("Ventas realizadas: " + rs.getInt("ventas"));
-        System.out.println("Ingresos totales: $" + rs.getBigDecimal("ingresos"));
-
+    ) {
+      if (rs.next()) {
+        if (rs.getBigDecimal("ingresos") == null) {
+          System.out.println("===== INGRESOS =====");
+          System.out.println("Ventas realizadas: " + rs.getInt("ventas"));
+          System.out.println("Ingresos totales: $0");
+        } else {
+          System.out.println("===== INGRESOS =====");
+          System.out.println("Ventas realizadas: " + rs.getInt("ventas"));
+          System.out.println("Ingresos totales: $" + rs.getBigDecimal("ingresos"));
+        }
       }
-
-    }catch(SQLException e){
+    } catch (SQLException e) {
 
       System.out.println(e.getMessage());
-
     }
-
   }
 
   public void celularMasVendido(){
@@ -66,7 +59,6 @@ public class ReporteDAO {
 
             LIMIT 1
             """;
-
     try{
 
       if(conexion == null){

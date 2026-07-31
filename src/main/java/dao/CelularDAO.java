@@ -1,10 +1,10 @@
 package dao;
 
-import conexion.Conexion;
+import database.Conexion;
 import enums.Gama;
 import enums.SistemaOperativo;
+import factory.CelularFactory;
 import models.Celular;
-import models.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,14 +57,13 @@ public class CelularDAO {
 
       while (rs.next()) {
 
-        Celular celular = new Celular(
+        Celular celular = CelularFactory.crearCelular(
           rs.getString("marca"),
           rs.getString("modelo"),
           rs.getBigDecimal("precio"),
           rs.getInt("stock"),
           SistemaOperativo.valueOf(rs.getString("sistema_operativo")),
-          Gama.valueOf(rs.getString("gama")),
-          rs.getBoolean("disponible")
+          Gama.valueOf(rs.getString("gama"))
         );
 
         celular.setId(rs.getInt("id_celular"));

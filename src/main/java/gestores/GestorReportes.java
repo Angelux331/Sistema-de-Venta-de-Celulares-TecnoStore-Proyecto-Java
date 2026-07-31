@@ -3,6 +3,7 @@ package gestores;
 import dao.ReporteDAO;
 import utils.ArchivoUtils;
 import utils.Menus;
+import utils.ReporteUtils;
 
 import java.util.Scanner;
 
@@ -42,6 +43,9 @@ public class GestorReportes {
           ArchivoUtils.pausarPantalla(teclado);
           break;
         case 4:
+          ReporteUtils.generarReporteVentas(teclado);
+          break;
+        case 5:
           ArchivoUtils.limpiarPantalla1();
           System.out.println("Volviendo...");
           return;

@@ -41,6 +41,7 @@ public class Menus {
     System.out.println("1. Ingresos totales");
     System.out.println("2. Celular más vendido");
     System.out.println("3. Cliente con más compras");
-    System.out.println("4. Volver");
+    System.out.println("4. Generar reporte de ventas");
+    System.out.println("5. Volver");
   }
 }
